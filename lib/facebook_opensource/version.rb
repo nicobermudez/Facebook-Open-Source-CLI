@@ -1,3 +1,3 @@
-module FacebookOpensource
+module OpenSource
   VERSION = "0.1.0"
 end
