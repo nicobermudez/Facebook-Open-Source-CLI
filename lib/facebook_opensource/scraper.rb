@@ -7,12 +7,17 @@ class OpenSource::Scraper
       if section.css("h1").text != "Trending"
         category_name= section.css("h1").text
         categories << {category: category_name}
+        category = OpenSource::Category.new(category_name)
       end
     end
-    categories
+
+
   end
 
   def self.scrape_projects(category)
+    doc = Nokogiri::HTML(open(category))
+    project = {}
+
   end
 
 end
