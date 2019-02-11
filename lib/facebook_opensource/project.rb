@@ -1,0 +1,4 @@
+class OpenSource::Project
+
+
+end

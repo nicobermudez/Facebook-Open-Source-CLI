@@ -5,7 +5,7 @@ require "facebook_opensource/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "facebook_opensource"
-  spec.version       = FacebookOpensource::VERSION
+  spec.version       = OpenSource::VERSION
   spec.authors       = ["Nico Bermudez"]
   spec.email         = ["bermnicolas@gmail.com"]
 
