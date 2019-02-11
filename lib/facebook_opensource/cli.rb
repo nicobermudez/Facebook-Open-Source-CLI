@@ -1,0 +1,3 @@
+class OpenSource::CLI
+  
+end
