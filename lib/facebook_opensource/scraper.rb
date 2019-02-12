@@ -1,7 +1,5 @@
 class OpenSource::Scraper
 
-  #add github and website
-
   def self.scrape_categories
     doc = Nokogiri::HTML(open("https://opensource.facebook.com/"))
     categories = []
@@ -22,14 +20,12 @@ class OpenSource::Scraper
       attributes = {
         category: category.capitalize,
         name: project.css("h2").text,
-        description: project.css("p").text
-        # Still need Github and website
-
-        # github: project.css("a._3els._y0h").attr("href") if project.css("a._3els._y0h").attr("href").text == "GitHub"
+        description: project.css("p").text,
+        github: project.css("a._3els._y0h:first-child").attribute("href").value,
+        website: project.css("a._3els._y0h:last-child").attribute("href").value
         # website: project.css("a._3els._y0h").attr("href") if project.css("a._3els._y0h").attr("href").text == "Website"
       }
       project = OpenSource::Project.new(attributes)
     end
   end
-
 end

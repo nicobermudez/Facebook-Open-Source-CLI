@@ -1,11 +1,10 @@
 class OpenSource::Category
   attr_accessor :name
 
-  #category has_many projects
   @@all = []
 
-  def initialize(category)
-    @name = category
+  def initialize(name)
+    @name = name
     self.save
   end
 

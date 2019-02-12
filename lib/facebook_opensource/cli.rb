@@ -9,12 +9,12 @@ class OpenSource::CLI
     list_categories
 
     #select category
-    puts "Please select a category you would like to see projects of or type 'exit' to exit program."
+    puts "Please select a category (#) you would like to see projects of."
     #ask for input, scrape projects, and list them
     get_category_input
 
     #ask for input, list project details
-    puts "Please select a project you would like to see details of. "
+    puts "Please select a project (#) you would like to see details of or type 'exit' to exit program. "
     get_project_input
   end
 
@@ -30,8 +30,12 @@ class OpenSource::CLI
     end
   end
 
-  def project_detail(project)
-
+  def get_project_detail(project)
+    puts "Name: #{project.name}"
+    puts "Category: #{project.category}"
+    puts "Description: #{project.description}"
+    puts "GitHub: #{project.github}"
+    puts "Website: #{project.website}"
   end
 
 
@@ -45,8 +49,6 @@ class OpenSource::CLI
       puts "#{category} Projects: "
       OpenSource::Scraper.scrape_projects(category.downcase)
       list_projects(category.downcase)
-    elsif input == "exit"
-      #end method
     else
       puts "Sorry, I didn't understand that command"
       get_category_input
@@ -56,14 +58,11 @@ class OpenSource::CLI
   def get_project_input
     input = gets.strip
     index = input.to_i - 1
-    # Need to refactor code to define index boundaries
-
-    if index.between?(0,20)
+    if index.between?(0,OpenSource::Project.all.length)
       project = OpenSource::Project.all[index]
-      puts "Name: #{project.name}"
-      puts "Category: #{project.category}"
-      puts "Description: #{project.description}"
+      get_project_detail(project)
     elsif input == "exit"
+      #end method
     else
       puts "Sorry, I didn't understand that command"
       get_project_input

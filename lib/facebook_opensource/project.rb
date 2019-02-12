@@ -3,8 +3,6 @@ class OpenSource::Project
 
   @@all = []
 
-  #relate to category object
-
   def initialize(att_hash)
     att_hash.each {|key, value| self.send("#{key}=", value)}
     self.save
