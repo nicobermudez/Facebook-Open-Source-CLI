@@ -1,22 +1,27 @@
 class OpenSource::CLI
 
-  def call
+  def greeting
     puts "Welcome to our Facebook Open Source Projects CLI!"
-    puts ""
+    puts " "
+  end
+
+
+  def call
+    #greets user
+    greeting
     #scrape categories and list them
     list_categories
     #select category
-    puts "Please select a category (#) you would like to see projects of."
+    puts "Please select a category (#) you would like to see projects of or type 'exit' at any point to exit program."
     #ask for input, scrape projects, and list them
     get_category_input
     #ask for input, list project details
-    puts "Please select a project (#) you would like to see details of or type 'exit' to exit program. "
+    puts "Please select a project (#) you would like to see details of or type 'exit' at any point to exit program. "
     get_project_input
 
-    # TO DO: Ability to exit at any time
-    #
-    # puts "Would you like to see another project? (Y/N)"
-    # get_menu_input
+    #Go again or exit
+    puts "Would you like to see another project? (Y/N)"
+    get_menu_input
   end
 
   def list_categories
@@ -55,6 +60,8 @@ class OpenSource::CLI
     if index.between?(0, OpenSource::Category.all.length-1)
       category = OpenSource::Category.all[index].name
       list_projects(category.downcase)
+    elsif input == "exit"
+      exit
     else
       puts "Sorry, I didn't understand that command"
       get_category_input
@@ -69,25 +76,30 @@ class OpenSource::CLI
       get_project_detail(project)
 
     elsif input == "exit"
-      #end method
+      exit
     else
       puts "Sorry, I didn't understand that command"
       get_project_input
     end
   end
 
-  # def get_menu_input
-  #   input = gets.strip
-  #
-  #   if input == "Y"
-  #     call
-  #     #TO DO: Need clear method to restart program
-  #   elsif input == "N"
-  #     #end
-  #   else
-  #     puts "Sorry, I only understand 'Y' or'N'"
-  #     get_menu_input
-  #   end
-  # end
+  def get_menu_input
+    input = gets.strip
+
+    if input == "Y"
+      #TO DO: Need clear method to restart program
+      OpenSource::Category.destroy_all
+      OpenSource::Project.destroy_all
+      binding.pry
+      call
+
+    elsif input == "N"
+      puts "Thank you for exploring Facebook's Open Source Projects! Have a nice day :)"
+      #end
+    else
+      puts "Sorry, I only understand 'Y' or'N'"
+      get_menu_input
+    end
+  end
 
 end
