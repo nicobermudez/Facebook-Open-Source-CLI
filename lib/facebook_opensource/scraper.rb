@@ -18,8 +18,8 @@ class OpenSource::Scraper
     id_doc = doc.css("##{category}")
     id_doc.css("div._3eee._75ss").each do |project|
       attributes = {
-        category: category.capitalize,
         name: project.css("h2").text,
+        category: OpenSource::Category.find_by_name(category.capitalize),
         description: project.css("p").text,
         github: project.css("a._3els._y0h:first-child").attribute("href").value,
         website: project.css("a._3els._y0h:last-child").attribute("href").value
