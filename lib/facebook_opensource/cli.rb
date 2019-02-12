@@ -5,27 +5,9 @@ class OpenSource::CLI
     puts "Here are the different categories of projects: "
     OpenSource::Scraper.scrape_categories
     list_categories
-    puts "Which category or category number would you like to see projects of?"
-
+    puts "Please select a category you would like to see projects of or type 'exit' to exit program."
     #ask for input
-    input = ""
-    # while input != "exit"
-    #   input = gets.strip
-    #   case input
-    #   when input == "1"
-    #   when input == "2"
-    #   when input == "3"
-    #   when input == "4"
-    #   when input == "5"
-    #   when input == "6"
-    #   when input == "7"
-    #   when input == "8"
-    #   when input == "9"
-    #   when input == "10"
-    #   when input == "11"
-    #   end
-    # end
-
+    get_category_input
 
     #call another method
     #scrape categories
@@ -37,4 +19,25 @@ class OpenSource::CLI
     end
   end
 
+  def list_projects(category)
+    OpenSource::Project.all.each_with_index do |project, index|
+      puts "#{index + 1}. #{project.name}"
+    end
+  end
+
+  def get_category_input
+    input = gets.strip
+    index = input.to_i - 1
+    if index.between?(0, 10)
+      category = OpenSource::Category.all[index].name
+      puts "#{category} Projects: "
+      OpenSource::Scraper.scrape_projects(category.downcase)
+      list_projects(category.downcase)
+    elsif input == "exit"
+      #end method
+    else
+      puts "Sorry, I dind't understand that command"
+      get_input
+    end
+  end
 end
