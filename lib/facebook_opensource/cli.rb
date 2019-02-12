@@ -60,7 +60,7 @@ class OpenSource::CLI
     if index.between?(0, OpenSource::Category.all.length-1)
       category = OpenSource::Category.all[index].name
       list_projects(category.downcase)
-    elsif input == "exit"
+    elsif input.downcase == "exit"
       exit
     else
       puts "Sorry, I didn't understand that command"
@@ -75,7 +75,7 @@ class OpenSource::CLI
       project = OpenSource::Project.all[index]
       get_project_detail(project)
 
-    elsif input == "exit"
+    elsif input.downcase == "exit"
       exit
     else
       puts "Sorry, I didn't understand that command"
@@ -93,7 +93,7 @@ class OpenSource::CLI
       binding.pry
       call
 
-    elsif input == "N"
+    elsif input == "N" || input.downcase == "exit"
       puts "Thank you for exploring Facebook's Open Source Projects! Have a nice day :)"
       #end
     else
