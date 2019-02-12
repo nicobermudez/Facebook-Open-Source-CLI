@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Once installed, you will be greeted with a welcome message and a list of project categories. From there, select a category you would like to explore. Then, you will be prompted with an option to view more details from a list of different projects within the chosen category. Select a project to see more details. Type 'exit' at any time to exit the program or type in "Y" to continue searching through more projects. Happy exploring!
 
 ## Development
 
