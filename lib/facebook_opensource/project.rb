@@ -1,5 +1,5 @@
 class OpenSource::Project
-  attr_accessor :category, :name, :github, :website, :description
+  attr_accessor :name, :github, :website, :description, :category
 
   @@all = []
 
@@ -15,6 +15,10 @@ class OpenSource::Project
 
   def self.all
     @@all
+  end
+
+  def self.destroy_all
+    all.clear
   end
 
 end

@@ -14,7 +14,7 @@ class OpenSource::CLI
     get_project_input
 
     # TO DO: Ability to exit at any time
-    # 
+    #
     # puts "Would you like to see another project? (Y/N)"
     # get_menu_input
   end
@@ -29,7 +29,7 @@ class OpenSource::CLI
 
   def list_projects(category)
     OpenSource::Scraper.scrape_projects(category.downcase)
-    puts "#{category.upcase} Projects: "
+    puts "#{category.capitalize} Projects: "
     puts ""
     OpenSource::Project.all.each_with_index {|project, index| puts "#{index + 1}. #{project.name}"}
     puts ""
