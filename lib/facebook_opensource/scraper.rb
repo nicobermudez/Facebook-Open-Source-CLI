@@ -15,11 +15,14 @@ class OpenSource::Scraper
   def self.scrape_projects(category)
     category = category.split(" ").join("-")
     doc = Nokogiri::HTML(open("https://opensource.facebook.com/"))
+
+    #select html from only specific category from ID
     id_doc = doc.css("##{category}")
     id_doc.css("div._3eee._75ss").each do |project|
 
       attributes = {
         name: project.css("h2").text,
+        #Reference existing Category Object
         category: OpenSource::Category.find_by_name(category),
         description: project.css("p").text,
         github: project.css("a._3els._y0h:first-child").attribute("href").value,

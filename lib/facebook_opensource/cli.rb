@@ -5,7 +5,6 @@ class OpenSource::CLI
     puts " "
   end
 
-
   def call
     #greets user
     greeting
@@ -24,7 +23,10 @@ class OpenSource::CLI
     get_menu_input
   end
 
+
+
   def list_categories
+    #scrape categories from website
     OpenSource::Scraper.scrape_categories
     puts "Here are the different categories of projects: "
     puts ""
@@ -33,6 +35,7 @@ class OpenSource::CLI
   end
 
   def list_projects(category)
+    # scrape project from category from website
     OpenSource::Scraper.scrape_projects(category.downcase)
     puts "#{category.capitalize} Projects: "
     puts ""
@@ -57,11 +60,13 @@ class OpenSource::CLI
   def get_category_input
     input = gets.strip
     index = input.to_i - 1
+
+    #if valid input, select category and projects from that category
     if index.between?(0, OpenSource::Category.all.length-1)
       category = OpenSource::Category.all[index].name
       list_projects(category.downcase)
     elsif input.downcase == "exit"
-      exit
+      exit_program
     else
       puts "Sorry, I didn't understand that command"
       get_category_input
@@ -71,35 +76,40 @@ class OpenSource::CLI
   def get_project_input
     input = gets.strip
     index = input.to_i - 1
+
+    #if valid input, select project and its details
     if index.between?(0,OpenSource::Project.all.length-1)
       project = OpenSource::Project.all[index]
       get_project_detail(project)
-
     elsif input.downcase == "exit"
-      exit
+      exit_program
     else
       puts "Sorry, I didn't understand that command"
       get_project_input
     end
   end
 
+  #repeat program or exit
   def get_menu_input
     input = gets.strip
-
     if input == "Y"
-      #TO DO: Need clear method to restart program
+      # Clear Objects to restart program
       OpenSource::Category.destroy_all
       OpenSource::Project.destroy_all
-      binding.pry
       call
-
     elsif input == "N" || input.downcase == "exit"
-      puts "Thank you for exploring Facebook's Open Source Projects! Have a nice day :)"
-      #end
+      exit_program
     else
-      puts "Sorry, I only understand 'Y' or'N'"
+      puts "Sorry, I only understand 'Y' or 'N'"
       get_menu_input
     end
+  end
+
+  def exit_program
+    puts ""
+    puts "Thank you for exploring Facebook's Open Source Projects! Have a nice day :)"
+    puts ""
+    exit
   end
 
 end

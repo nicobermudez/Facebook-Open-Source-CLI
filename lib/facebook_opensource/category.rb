@@ -8,7 +8,6 @@ class OpenSource::Category
 
   def initialize(name)
     @name = name
-    @projects = []
     self.save
   end
 
@@ -23,11 +22,6 @@ class OpenSource::Category
 
   def self.destroy_all
     all.clear
-  end
-
-  def self.add_projects(project)
-    project.category = self unless project.category
-    projects << project unless projects.include?(project)
   end
 
   def self.find_by_name(name)
