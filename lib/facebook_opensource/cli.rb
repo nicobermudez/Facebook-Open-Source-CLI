@@ -3,14 +3,19 @@ class OpenSource::CLI
   def call
     puts "Welcome to our Facebook Open Source Projects CLI!"
     puts "Here are the different categories of projects: "
+
+    #scrape categories and list them
     OpenSource::Scraper.scrape_categories
     list_categories
+
+    #select category
     puts "Please select a category you would like to see projects of or type 'exit' to exit program."
-    #ask for input
+    #ask for input, scrape projects, and list them
     get_category_input
 
-    #call another method
-    #scrape categories
+    #ask for input, list project details
+    puts "Please select a project you would like to see details of. "
+    get_project_input
   end
 
   def list_categories
@@ -25,6 +30,13 @@ class OpenSource::CLI
     end
   end
 
+  def project_detail(project)
+
+  end
+
+
+  #clean this code up
+
   def get_category_input
     input = gets.strip
     index = input.to_i - 1
@@ -36,8 +48,25 @@ class OpenSource::CLI
     elsif input == "exit"
       #end method
     else
-      puts "Sorry, I dind't understand that command"
-      get_input
+      puts "Sorry, I didn't understand that command"
+      get_category_input
+    end
+  end
+
+  def get_project_input
+    input = gets.strip
+    index = input.to_i - 1
+    # Need to refactor code to define index boundaries
+
+    if index.between?(0,20)
+      project = OpenSource::Project.all[index]
+      puts "Name: #{project.name}"
+      puts "Category: #{project.category}"
+      puts "Description: #{project.description}"
+    elsif input == "exit"
+    else
+      puts "Sorry, I didn't understand that command"
+      get_project_input
     end
   end
 end

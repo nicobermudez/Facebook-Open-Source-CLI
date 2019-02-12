@@ -1,6 +1,7 @@
 class OpenSource::Category
   attr_accessor :name
 
+  #category has_many projects
   @@all = []
 
   def initialize(category)

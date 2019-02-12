@@ -1,5 +1,7 @@
 class OpenSource::Scraper
 
+  #add github and website
+
   def self.scrape_categories
     doc = Nokogiri::HTML(open("https://opensource.facebook.com/"))
     categories = []
