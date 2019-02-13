@@ -2,7 +2,7 @@
 
 Welcome to your new gem, Facebook Open Source Projects. Here, you will be able to search through Facebook's Open Source Projects by Category to find out details about each individual project. In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/facebook_opensource`. To experiment with that code, run `bin/console` for an interactive prompt.
 
-** -Currently Not Published- **
+***Currently Not Published***
 
 ## Installation
 
