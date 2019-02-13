@@ -1,14 +1,14 @@
 class OpenSource::CLI
 
-  def greeting
-    puts "Welcome to our Facebook Open Source Projects CLI!"
-    puts " "
-  end
-
   def call
     #greets user
-    greeting
+    puts "Welcome to our Facebook Open Source Projects CLI!"
+    menu
+  end
+
+  def menu
     #scrape categories and list them
+    puts " "
     list_categories
     #select category
     puts "Please select a category (#) you would like to see projects of or type 'exit' at any point to exit program."
@@ -96,7 +96,7 @@ class OpenSource::CLI
       # Clear Objects to restart program
       OpenSource::Category.destroy_all
       OpenSource::Project.destroy_all
-      call
+      menu
     elsif input == "N" || input.downcase == "exit"
       exit_program
     else
