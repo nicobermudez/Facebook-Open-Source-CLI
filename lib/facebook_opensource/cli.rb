@@ -2,6 +2,7 @@ class OpenSource::CLI
 
   def call
     #greets user
+    puts ""
     puts "Welcome to our Facebook Open Source Projects CLI!"
     menu
   end
@@ -28,7 +29,7 @@ class OpenSource::CLI
   def list_categories
     #scrape categories from website
     OpenSource::Scraper.scrape_categories
-    puts "Here are the different categories of projects: "
+    puts "Open Source Project Categories: ".green
     puts ""
     OpenSource::Category.all.each_with_index {|category, index| puts "#{index+1}. #{category.name}".blue}
     puts ""
@@ -37,7 +38,8 @@ class OpenSource::CLI
   def list_projects(category)
     # scrape project from category from website
     OpenSource::Scraper.scrape_projects(category.downcase)
-    puts "#{category.capitalize} Projects: "
+    puts ""
+    puts "#{titleize(category)} Projects: ".green
     puts ""
     OpenSource::Project.all.each_with_index {|project, index| puts "#{index + 1}. #{project.name}".blue}
     puts ""
@@ -45,15 +47,15 @@ class OpenSource::CLI
 
   def get_project_detail(project)
     puts ""
-    puts "#{project.name.blue}"
+    puts "#{project.name.green}"
     puts ""
-    puts "  Category: ".green + "#{project.category.name}".red
+    puts "  Category: ".blue + "#{project.category.name}".red
     puts ""
-    puts "  Description: ".green + "#{project.description}".red
+    puts "  Description: ".blue + "#{project.description}".red
     puts ""
-    puts "  GitHub: ".green + "#{project.github}".red
+    puts "  GitHub: ".blue + "#{project.github}".red
     puts ""
-    puts "  Website: ".green + "#{project.website}".red
+    puts "  Website: ".blue + "#{project.website}".red
     puts ""
   end
 
@@ -103,6 +105,12 @@ class OpenSource::CLI
       puts "Sorry, I only understand 'Y' or 'N'"
       get_menu_input
     end
+  end
+
+  def titleize(string)
+    titleized = string.split.each {|char| char.capitalize!}
+    titleized = titleized.join(' ')
+    titleized
   end
 
   def exit_program
