@@ -30,7 +30,7 @@ class OpenSource::CLI
     OpenSource::Scraper.scrape_categories
     puts "Here are the different categories of projects: "
     puts ""
-    OpenSource::Category.all.each_with_index {|category, index| puts "#{index+1}. #{category.name}"}
+    OpenSource::Category.all.each_with_index {|category, index| puts "#{index+1}. #{category.name}".blue}
     puts ""
   end
 
@@ -39,21 +39,21 @@ class OpenSource::CLI
     OpenSource::Scraper.scrape_projects(category.downcase)
     puts "#{category.capitalize} Projects: "
     puts ""
-    OpenSource::Project.all.each_with_index {|project, index| puts "#{index + 1}. #{project.name}"}
+    OpenSource::Project.all.each_with_index {|project, index| puts "#{index + 1}. #{project.name}".blue}
     puts ""
   end
 
   def get_project_detail(project)
     puts ""
-    puts "Name: #{project.name}"
+    puts "#{project.name.blue}"
     puts ""
-    puts "Category: #{project.category.name}"
+    puts "  Category: ".green + "#{project.category.name}".red
     puts ""
-    puts "Description: #{project.description}"
+    puts "  Description: ".green + "#{project.description}".red
     puts ""
-    puts "GitHub: #{project.github}"
+    puts "  GitHub: ".green + "#{project.github}".red
     puts ""
-    puts "Website: #{project.website}"
+    puts "  Website: ".green + "#{project.website}".red
     puts ""
   end
 
