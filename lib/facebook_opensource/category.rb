@@ -1,6 +1,6 @@
 class OpenSource::Category
   attr_accessor :name
-  attr_reader :project
+  attr_reader :projects
 
   #Still not adding projects to category
 
@@ -9,6 +9,7 @@ class OpenSource::Category
   def initialize(name)
     @name = name
     self.save
+    @projects = []
   end
 
   def save
@@ -28,5 +29,7 @@ class OpenSource::Category
     name = name.split("-").join(" ").downcase
     all.detect {|c| c.name.downcase == name}
   end
+
+
 
 end

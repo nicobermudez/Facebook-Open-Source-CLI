@@ -28,7 +28,7 @@ class OpenSource::CLI
 
   def list_categories
     #scrape categories from website
-    OpenSource::Scraper.scrape_categories
+    OpenSource::Scraper.scrape_categories if OpenSource::Category.all.empty? 
     puts "Open Source Project Categories: ".green
     puts ""
     OpenSource::Category.all.each_with_index {|category, index| puts "#{index+1}. #{category.name}".blue}
@@ -37,9 +37,9 @@ class OpenSource::CLI
 
   def list_projects(category)
     # scrape project from category from website
-    OpenSource::Scraper.scrape_projects(category.downcase)
+    OpenSource::Scraper.scrape_projects(category)
     puts ""
-    puts "#{titleize(category)} Projects: ".green
+    puts "#{titleize(category.name)} Projects: ".green
     puts ""
     OpenSource::Project.all.each_with_index {|project, index| puts "#{index + 1}. #{project.name}".blue}
     puts ""
@@ -65,8 +65,9 @@ class OpenSource::CLI
 
     #if valid input, select category and projects from that category
     if index.between?(0, OpenSource::Category.all.length-1)
-      category = OpenSource::Category.all[index].name
-      list_projects(category.downcase)
+      category = OpenSource::Category.all[index]
+
+      list_projects(category)
     elsif input.downcase == "exit"
       exit_program
     else
@@ -95,9 +96,6 @@ class OpenSource::CLI
   def get_menu_input
     input = gets.strip
     if input == "Y"
-      # Clear Objects to restart program
-      OpenSource::Category.destroy_all
-      OpenSource::Project.destroy_all
       menu
     elsif input == "N" || input.downcase == "exit"
       exit_program
